@@ -62,10 +62,9 @@ create table Har(
 )engine=innodb;
 
     
-insert into Spelare (PersonNr,namn,ålder) values (199602091234,"Johan Andersson", 25);
-insert into Spelare (PersonNr,namn,ålder) values (197002024321,"Annika Persson",51);
-insert into Spelare (PersonNr,namn,ålder) values (198012125555,"Nicklas Jansson",41);
-insert into Spelare (PersonNr,namn,ålder) values (200102091234,"Kalle Anka", 20);
+insert into Spelare (PersonNr,namn,ålder) values (199602091234,"Johan Andersson",YEAR(CURDATE()) - YEAR("1996-02-09"));
+insert into Spelare (PersonNr,namn,ålder) values (197002024321,"Annika Persson",YEAR(CURDATE()) - YEAR("1970-02-02"));
+insert into Spelare (PersonNr,namn,ålder) values (198012125555,"Nicklas Jansson",YEAR(CURDATE()) - YEAR("1980-12-12"));
 
 insert into Tävling (Tävlingsnamn,Datum) values ("Big Golf Cup Skövde",'2021-06-10');
 
@@ -82,13 +81,10 @@ insert into jacka(storlek,material,modell,personnr) values ("xxl","goretex","bud
 insert into Klubba(Nr,Material,PersonNr,SerialNr) values (1,"trä",199602091234,1234);
 insert into Klubba(Nr,Material,PersonNr,SerialNr) values (2,"trä",197002024321,4321);
 
-insert into Tävling (Tävlingsnamn,Datum) values ("Kalle Anka cupp",'2001-02-19');
-
-
 select Namn,ålder from Spelare where Namn = "Johan Andersson";
 select tävlingsnamn,datum from tävling where tävlingsnamn = "Big Golf Cup SKövde";
 Select material from klubba where PersonNr = 199602091234;
-select material from jacka where PersonNr = 199602091234;
+select material,namn from jacka,spelare where jacka.PersonNr = 199602091234 && spelare.PersonNr = 199602091234;
 select tävlingsnamn,delta.personnr,namn from delta,spelare where tävlingsnamn ="Big Golf Cup Skövde" && spelare.personnr = delta.personnr;
 select regn.vindstyrka, har.tävlingsnamn from regn,har where har.tävlingsnamn= "Big Golf Cup Skövde";
 select namn,ålder from spelare where (ålder<30);
